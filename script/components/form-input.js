@@ -1,71 +1,66 @@
 class NotesInput extends HTMLElement {
-  _Root = null;
+  _shadowRoot = null;
   _style = null;
   _notes = null;
 
   constructor() {
     super();
 
-    this._Root = this.attachShadow({ mode: "open" });
+    this._shadowRoot = this.attachShadow({ mode: "open" });
     this._style = document.createElement("style");
   }
   _updateStyle() {
     this._style.textContent = `
-                .form-container {
+      .form-container {
+        margin-top: 70px;
+      }
+      
+      .form-container h2 {
+        text-align: center;
+        font-size: 2em; 
+      }
+      form {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+      } 
+      input[type="text"],
+      form textarea {
+        padding: 8px 8px;
+        margin-top: 20px;
+        font-size: 16px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        font-family:"Playfair Display", serif;
 
-                    margin-top: 70px;
-                    background-color:BED7DC;
-    
-                }
-                
-                .form-container h2 {
-                    text-align: center;
-                    font-size: 2em;
-                    
-                }
-                
-                form {
-                    margin-top: 20px;
-                    text-align: center;
-                    display: flex;
-                    flex-direction: column;
-                  
-                }
-                
-                input[type="text"],
-                form textarea {
-                    padding: 10px;
-                    font-size: 15px;
-                    margin-top: 20px;
-                    font-size: 16px;
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-                
-                form button {
-                    margin-top: 20px;
-                    padding: 15px;
-                    background-color: F1EEDC;
-                    border: none;
-                    border-radius: 20px;
-                    width: 100px;
-                    cursor: pointer;
-                    font-size: 15px;
-                    align-self: center;
-                  
-                }
-
-                @media screen and (max-width: 500px) {
-                    input, textarea {
-                        width: 60%;
-                    }
-                }
-     `;
+      }
+      form button {
+        margin-top: 20px;
+        padding: 8px 8px;
+        background-color: D5BDAF;
+        border: none;
+        border-radius:4px;
+        width: 100px;
+        cursor: pointer;
+        font-size: 15px;
+        align-self: center;
+        font-family:"Playfair Display", serif;
+      }
+      input:hover, textarea:hover, button:hover{
+        font-weight:bold;
+      }
+      @media screen and (max-width: 500px) {
+        input, textarea {
+          width: 60%;
+        }
+      }
+    `;
   }
 
   _emptyContent() {
-    this._Root.innerHTML = "";
+    this._shadowRoot.innerHTML = "";
   }
   set notes(value) {
     this._notes = value;
@@ -85,41 +80,42 @@ class NotesInput extends HTMLElement {
     this._emptyContent();
     this._updateStyle();
 
-    this._Root.appendChild(this._style);
-    this._Root.innerHTML += `
-        <div class="form-container">
-            <h2>Input  Notes</h2>
-            <form id="form">
-            <div class="form-group">
-                <input
-                type="text"
-                name="input-title"
-                id="input-title"
-                placeholder="Masukkan judul"
-                size="63"
-                />
-            </div>
-            
-            <div class="form-group">
-                <textarea
-                name="input-notes"
-                id="input-notes"
-                cols="59"
-                rows="10"
-                placeholder="Masukkan notes"
-                ></textarea>
-            </div>
-            <button id="submit-button">Submit</button>
-            </form>
-        </div>
+    this._shadowRoot.appendChild(this._style);
+    this._shadowRoot.innerHTML += `
+      <div class="form-container">
+        <h2> Tambahkan Notes</h2>
+        <form id="form">
+          <div class="form-group">
+            <input
+            type="text"
+            name="input-title"
+            id="input-title"
+            placeholder="Judul Note"
+            maxlength="100"
+            size=50
+            />
+          </div>
+        
+          <div class="form-group">
+            <textarea
+            name="input-notes"
+            id="input-notes"
+            cols="50"
+            rows="10"
+            placeholder="Deskripsi Note"
+            ></textarea>
+          </div>
+          <button id="submit-button">Submit</button>
+        </form>
+      </div>
     `;
 
-    const submitButton = this._Root.getElementById("form");
+    const submitButton = this._shadowRoot.getElementById("form");
     submitButton.addEventListener("submit", (event) => {
       event.preventDefault();
 
-      const inputTitle = this._Root.getElementById("input-title").value;
-      const inputNote = this._Root.getElementById("input-notes").value;
+      const inputTitle = this._shadowRoot.getElementById("input-title").value;
+      const inputNote = this._shadowRoot.getElementById("input-notes").value;
 
       const addNote = {
         title: inputTitle,

@@ -17,14 +17,15 @@ class Nav extends HTMLElement{
      }
      nav h1{
        margin-top: 30px;
+       font-size:2.5em;
      }
     `;
    }
 
    _emptyContent(){
     this._shadowRoot.innerHTML ="";
-       }
-    connectedCallback( ){
+    }
+  connectedCallback( ){
         this.render();
    }
 

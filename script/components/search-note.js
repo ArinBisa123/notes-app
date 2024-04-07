@@ -7,29 +7,45 @@ class SearchNote extends HTMLElement {
   }
   _updateStyle(){
     this._style.textContent=`
-        .search-container {
-          display: flex;
-          align-items: center;
-          background-color: B3C8CF;
-      margin-top:5px;
-      padding:24px;
+      .search-container {
+        margin-top:5px;
+        padding:24px;
       }
-      .search-container input {
-          flex: 1;
-          padding: 4px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          margin-right: 4px;
-          
-          
+      .search-container h2{
+        text-align:center;
+        font-size:2em;
       }
-      .search-container button {
-          padding: 8px 8px;
-          border: none;
-          border-radius: 4px;
-          background-color:  F1EEDC;
-          
-          cursor: pointer;
+      .search-field{
+        display:flex;
+        justify-content:center;
+      }
+      .search-field input {
+        width: 700px;
+        padding: 8px 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 4px;
+        font-family:"Playfair Display", serif;
+        font-size:16px;
+      }
+      .search-field input:hover{
+        font-weight:bold
+      }
+      .search-field button {
+        background-color:D5BDAF;
+        width: 50px;
+        padding: 8px 8px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: "Playfair Display", serif;
+        font-size:16px;
+      }
+      .search-field button:hover{
+        font-weight:bold;
+        background-color: F5EBE0;
+        border: solid;
+        border-color: D5BDAF
       }
     `
   }
@@ -56,20 +72,23 @@ class SearchNote extends HTMLElement {
   render() {
     this._emptyContent()
     this._updateStyle()
-    // this.connectedCallback()
+
     this._shadowRoot.appendChild(this._style)
     this._shadowRoot.innerHTML += `
 
     <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Ketik Untuk Mencari Notes">
-        <button id="searchButton">Search</button>
+      <h2>Cari Notes</h2>
+      <form class="search-field">
+        <input type="text" id="searchInput" placeholder="Ketik Judul Note">
+        <button id="searchButton">Cari</button>
+      </form>
     </div>
     
     
     `;
-    this._shadowRoot.getElementById('searchButton').addEventListener("click", function (e) {
+    this._shadowRoot.getElementById('searchButton').addEventListener("submit", function (e) {
       e.preventDefault();
-      _searchNote()
+      this._searchNote()
       this._shadowRoot.getElementById("searchInput").reset()
     });
   }
