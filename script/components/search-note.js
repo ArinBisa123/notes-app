@@ -80,7 +80,7 @@ class SearchNote extends HTMLElement {
       <h2>Cari Notes</h2>
       <form class="search-field">
         <input type="text" id="searchInput" placeholder="Ketik Judul Note">
-        <button id="searchButton">Cari</button>
+        <button type="submit" id="searchButton">Cari</button>
       </form>
     </div>
     

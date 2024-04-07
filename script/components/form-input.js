@@ -105,15 +105,15 @@ class NotesInput extends HTMLElement {
             placeholder="Deskripsi Note"
             ></textarea>
           </div>
-          <button id="submit-button">Submit</button>
+          <button type="submit" id="submit-button">Submit</button>
         </form>
       </div>
     `;
 
-    const submitButton = this._shadowRoot.getElementById("form");
+    const submitButton = this._shadowRoot.getElementById("submit-button");
     submitButton.addEventListener("submit", (event) => {
       event.preventDefault();
-
+      
       const inputTitle = this._shadowRoot.getElementById("input-title").value;
       const inputNote = this._shadowRoot.getElementById("input-notes").value;
 
@@ -125,6 +125,8 @@ class NotesInput extends HTMLElement {
       };
 
       this.dispatchEvent(new CustomEvent("addNewNote", { detail: addNote }));
+      console.log(inputTitle)
+      console.log(inputNote)
     });
   }
 }
