@@ -34,15 +34,15 @@ class NoteList extends HTMLElement {
       padding: 20px;
       font-size: 15px;
     }
-    .title-note{
+    .title_note{
       font-size:18px;
     }
-    .title-note,
-    .body-note,
-    .date-note {
+    .title_note,
+    .body_note,
+    .date_note {
       margin-bottom: 10px;
     }
-    .body-note, .date-note{
+    .body_note, .date_note{
       font-family:"Playfair Display", serif;
       font-weight:600;
     }
@@ -60,7 +60,6 @@ class NoteList extends HTMLElement {
   render() {
     this._emptyContent();
     this._updateStyle();
-
     this._shadowRoot.appendChild(this._style);
     this._shadowRoot.innerHTML += `
       <div class="container-note-list"> 
@@ -68,13 +67,13 @@ class NoteList extends HTMLElement {
         <div class="notes-list">
           ${notesData.map((note) => `
               <div class="notes-item">
-                <div class="title-note">
+                <div class="title_note">
                     <h3>${note.title}</h3>
                 </div>
-                <div class="date-note">
+                <div class="date_note">
                 ${new Date(note.createdAt).toLocaleDateString()}
                 </div>
-                <div class="body-note">
+                <div class="body_note">
                     <p>${note.body}</p>
                 </div>
               </div>
@@ -85,5 +84,4 @@ class NoteList extends HTMLElement {
     `;
   }
 }
-customElements.define("note-list", NoteList);
-
+customElements.define("note-list", NoteList)

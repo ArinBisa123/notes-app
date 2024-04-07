@@ -125,8 +125,6 @@ class NotesInput extends HTMLElement {
       };
 
       this.dispatchEvent(new CustomEvent("addNewNote", { detail: addNote }));
-      console.log(inputTitle)
-      console.log(inputNote)
     });
   }
 }

@@ -57,18 +57,17 @@ class SearchNote extends HTMLElement {
     this.render();
   }
   _searchNote() {
-    const noteTitle = this._shadowRoot.querySelectorAll(".title-note>h3");
     const searchInput = this._shadowRoot.getElementById('searchInput').value.toLowerCase()
     for (i = 0; i < noteTitle.length; i++) {
       if (!noteTitle[i].innerHTML.toLowerCase().includes(searchInput)) {
-        noteTitle[i].parentElement.style.display = "none";
+        titleElement.parentElement.style.display = "none";
       } else {
         noteTitle[i].parentElement.style.display = "block";
       }
     }
     console.log(noteTitle)
   }
-  
+    
   render() {
     this._emptyContent()
     this._updateStyle()
@@ -86,10 +85,12 @@ class SearchNote extends HTMLElement {
     
     
     `;
+    const searchNote = this._searchNote
+    const searchForm = this._shadowRoot.querySelector(".search-field")
     this._shadowRoot.getElementById('searchButton').addEventListener("submit", function (e) {
       e.preventDefault();
-      this._searchNote()
-      this._shadowRoot.getElementById("searchInput").reset()
+      searchNote()
+      searchForm.reset()
     });
   }
   
