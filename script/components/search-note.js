@@ -89,7 +89,7 @@ class SearchNote extends HTMLElement {
 
     <div class="search-container">
       <h2>Cari Notes</h2>
-      <form id="searhField" class="search-field">
+      <form id="searchField" class="search-field">
         <input type="text" id="searchInput" placeholder="Ketik Judul Note">
         <button id="searchButton">Cari</button>
       </form>
@@ -97,18 +97,18 @@ class SearchNote extends HTMLElement {
     
     
     `;
-    const searchForm = this._shadowRoot.querySelector(".search-field")
-    const searchInput = this._shadowRoot.getElementById('searchInput').value
-    this._shadowRoot.getElementById('searchButton').addEventListener('click', function (e){
+    const noteList =new NoteList()
+    const searchNote = noteList._searchNote
+    const searchForm = this._shadowRoot.getElementById("searchField")
+    const searchInput = this._shadowRoot.getElementById('searchInput').value.toLowerCase()
+    searchForm.addEventListener('submit', function (e){
       e.preventDefault();
       searchNote(searchInput)
       searchForm.reset()
       console.log(searchInput)
     }) 
-    const noteList =new NoteList()
-    const searchNote = noteList._searchNote
+    
   }
-  
 }
 
 customElements.define("search-note", SearchNote);
