@@ -61,7 +61,7 @@ class NoteList extends HTMLElement {
     const noteTitle = this._shadowRoot.querySelectorAll('.title_note')
     console.log(noteTitle)
     for (let i = 0; i < noteTitle.length; i++) {
-      if (!noteTitle[i].firstElementChild.innerHTML.toLowerCase().includes('meeting')) {
+      if (!noteTitle[i].firstElementChild.innerHTML.toLowerCase().includes(searchInput)) {
         noteTitle[i].parentElement.style.display = "none";
       } else {
         noteTitle[i].parentElement.style.display = "block";

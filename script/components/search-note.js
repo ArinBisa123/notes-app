@@ -99,12 +99,12 @@ class SearchNote extends HTMLElement {
     `;
     const searchForm = this._shadowRoot.querySelector(".search-field")
     const searchInput = this._shadowRoot.getElementById('searchInput').value
-    this._shadowRoot.getElementById('searchButton').onclick = function (e) {
+    this._shadowRoot.getElementById('searchButton').addEventListener('click', function (e){
       e.preventDefault();
       searchNote(searchInput)
       searchForm.reset()
       console.log(searchInput)
-    };
+    }) 
     const noteList =new NoteList()
     const searchNote = noteList._searchNote
   }
