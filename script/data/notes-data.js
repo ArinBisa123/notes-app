@@ -106,20 +106,20 @@ const notesData = [
     },
   ];
   
-  // class notesData {
+  // class NotesData {
   //   static getAll() {
   //     return notesData;
   //   }
   
-  //   static searchnotesData(query) {
+  //   static searchNotesData(query) {
   //     return notesData.filter((club) => {
-  //       const loweredCaseClubName = (club.strTeam || '-').toLowerCase();
-  //       const jammedClubName = loweredCaseClubName.replace(/\s/g, '');
+  //       const loweredCaseNoteName = (club.title || '-').toLowerCase();
+  //       const jammedNoteName = loweredCaseNoteName.replace(/\s/g, '');
   
   //       const loweredCaseQuery = query.toLowerCase();
   //       const jammedQuery = loweredCaseQuery.replace(/\s/g, '');
   
-  //       return jammedClubName.indexOf(jammedQuery) !== -1;
+  //       return jammedNoteName.indexOf(jammedQuery) !== -1;
   //     });
   //   }
   // }

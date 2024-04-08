@@ -110,8 +110,8 @@ class NotesInput extends HTMLElement {
       </div>
     `;
 
-    const submitButton = this._shadowRoot.getElementById("submit-button");
-    submitButton.addEventListener("submit", (event) => {
+    const formAddData = this._shadowRoot.getElementById("form");
+    formAddData.addEventListener("submit", (event) => {
       event.preventDefault();
       
       const inputTitle = this._shadowRoot.getElementById("input-title").value;
@@ -125,6 +125,7 @@ class NotesInput extends HTMLElement {
       };
 
       this.dispatchEvent(new CustomEvent("addNewNote", { detail: addNote }));
+      formAddData.reset()
     });
   }
 }

@@ -6,6 +6,7 @@ class NoteList extends HTMLElement {
 
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._style = document.createElement("style");
+    this._searchNote=this._searchNote.bind(this)
   }
 
   _updateStyle() {
@@ -25,7 +26,7 @@ class NoteList extends HTMLElement {
       display: grid;
       justify-items: center;
       gap: 20px;
-      margin: 30px;
+      margin:30px;
     }
       
     .notes-item {
@@ -56,7 +57,18 @@ class NoteList extends HTMLElement {
   connectedCallback() {
     this.render();
   }
-
+  _searchNote(searchInput) {
+    const noteTitle = this._shadowRoot.querySelectorAll('.title_note')
+    console.log(noteTitle)
+    for (let i = 0; i < noteTitle.length; i++) {
+      if (!noteTitle[i].firstElementChild.innerHTML.toLowerCase().includes('meeting')) {
+        noteTitle[i].parentElement.style.display = "none";
+      } else {
+        noteTitle[i].parentElement.style.display = "block";
+      }
+    }
+    console.log(searchInput)
+  }
   render() {
     this._emptyContent();
     this._updateStyle();
@@ -82,6 +94,8 @@ class NoteList extends HTMLElement {
         </div>
       </div>
     `;
+    this._searchNote()
   }
 }
 customElements.define("note-list", NoteList)
+export default NoteList

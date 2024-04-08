@@ -1,9 +1,12 @@
+import NoteList from "./note-list.js";
+
 class SearchNote extends HTMLElement {
+  // _submitEvent='submit'
+  // _searchEvent='search'
   constructor() {
     super();
     this._shadowRoot = this.attachShadow({ mode: "open" });
     this._style= document.createElement('style')
-    this._searchNote=this._searchNote.bind(this)
   }
   _updateStyle(){
     this._style.textContent=`
@@ -54,20 +57,29 @@ class SearchNote extends HTMLElement {
   }
 
   connectedCallback() {
+    // this._shadowRoot.querySelector('form').addEventListener('submit',(event) => this._onFormSubmit(event,this))
+    // this.addEventListener(this._submitEvent,this._onSearchBarSubmit)
     this.render();
   }
-  _searchNote() {
-    const searchInput = this._shadowRoot.getElementById('searchInput').value.toLowerCase()
-    for (i = 0; i < noteTitle.length; i++) {
-      if (!noteTitle[i].innerHTML.toLowerCase().includes(searchInput)) {
-        titleElement.parentElement.style.display = "none";
-      } else {
-        noteTitle[i].parentElement.style.display = "block";
-      }
-    }
-    console.log(noteTitle)
-  }
-    
+
+  // _onFormSubmit(event, searchBarInstance) {
+  //   searchBarInstance.dispatchEvent(new CustomEvent('submit'));
+ 
+  //   event.preventDefault();
+  // }
+
+  // _onSearchBarSubmit() {
+  //   const query = this._shadowRoot.querySelector('input#searchInput').value;
+ 
+  //   if (!query) return;
+ 
+  //   this.dispatchEvent(
+  //     new CustomEvent(this._searchEvent, {
+  //       detail: { query },
+  //       bubbles: true,
+  //     }),
+  //   );
+  // }
   render() {
     this._emptyContent()
     this._updateStyle()
@@ -77,21 +89,24 @@ class SearchNote extends HTMLElement {
 
     <div class="search-container">
       <h2>Cari Notes</h2>
-      <form class="search-field">
+      <form id="searhField" class="search-field">
         <input type="text" id="searchInput" placeholder="Ketik Judul Note">
-        <button type="submit" id="searchButton">Cari</button>
+        <button id="searchButton">Cari</button>
       </form>
     </div>
     
     
     `;
-    const searchNote = this._searchNote
     const searchForm = this._shadowRoot.querySelector(".search-field")
-    this._shadowRoot.getElementById('searchButton').addEventListener("submit", function (e) {
+    const searchInput = this._shadowRoot.getElementById('searchInput').value
+    this._shadowRoot.getElementById('searchButton').onclick = function (e) {
       e.preventDefault();
-      searchNote()
+      searchNote(searchInput)
       searchForm.reset()
-    });
+      console.log(searchInput)
+    };
+    const noteList =new NoteList()
+    const searchNote = noteList._searchNote
   }
   
 }
