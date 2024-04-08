@@ -1,4 +1,3 @@
-import NoteList from "./note-list.js";
 
 class SearchNote extends HTMLElement {
   // _submitEvent='submit'
@@ -97,16 +96,21 @@ class SearchNote extends HTMLElement {
     
     
     `;
-    const noteList =new NoteList()
+    const noteList = document.querySelector('note-list')
     const searchNote = noteList._searchNote
     const searchForm = this._shadowRoot.getElementById("searchField")
-    const searchInput = this._shadowRoot.getElementById('searchInput').value.toLowerCase()
-    searchForm.addEventListener('submit', function (e){
-      e.preventDefault();
-      searchNote(searchInput)
+    const searchInput = this._shadowRoot.getElementById('searchInput')
+    this._shadowRoot.getElementById('searchButton').onclick = function(e){
+      e.preventDefault()
+      searchNote(searchInput.value.toLowerCase())
       searchForm.reset()
-      console.log(searchInput)
-    }) 
+    }
+    // searchForm.addEventListener('submit', function (e){
+    //   e.preventDefault();
+    //   searchNote(searchInput)
+    //   searchForm.reset()
+    //   console.log(searchInput)
+    // }) 
     
   }
 }

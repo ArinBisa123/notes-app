@@ -91,8 +91,8 @@ class NotesInput extends HTMLElement {
             name="input-title"
             id="input-title"
             placeholder="Judul Note"
-            maxlength="100"
             size=50
+            required
             />
           </div>
         
@@ -113,7 +113,6 @@ class NotesInput extends HTMLElement {
     const formAddData = this._shadowRoot.getElementById("form");
     formAddData.addEventListener("submit", (event) => {
       event.preventDefault();
-      
       const inputTitle = this._shadowRoot.getElementById("input-title").value;
       const inputNote = this._shadowRoot.getElementById("input-notes").value;
 
@@ -123,8 +122,13 @@ class NotesInput extends HTMLElement {
         createdAt: new Date().toISOString(),
         archived: false,
       };
-
-      this.dispatchEvent(new CustomEvent("addNewNote", { detail: addNote }));
+      if(inputTitle.length >=0 && inputTitle.length <=100){
+        alert("Succes add data")
+        this.dispatchEvent(new CustomEvent("addNewNote", { detail: addNote }));
+      }else{
+        alert("Make sure the input is maximum to 100 characters ")
+      }
+      // this.dispatchEvent(new CustomEvent("addNewNote", { detail: addNote }));
       formAddData.reset()
     });
   }

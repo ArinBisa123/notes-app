@@ -94,7 +94,6 @@ class NoteList extends HTMLElement {
         </div>
       </div>
     `;
-    this._searchNote()
   }
 }
 customElements.define("note-list", NoteList)
