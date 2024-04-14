@@ -2,7 +2,7 @@ const BASE_URL = 'https://notes-api.dicoding.dev/v2';
  
 const NotesApi = () => {
   const elementListNote = document.querySelector('note-list');
-  const elementAppBar = document.querySelector('app-bar');
+  const elementArchiveNote= document.querySelector('archive-note');
   const elementFormInput = document.querySelector('form-input');
   const elementSearchNote = document.querySelector('search-note');
 
@@ -101,9 +101,9 @@ const NotesApi = () => {
 	};
 
   elementSearchNote.eventSearch = search;
-  elementFormInput.eventAddNote = addNote;
+  elementFormInput.eventAddNotes = addNote;
   elementListNote.eventDeleteNote = deleteNote;
-  elementAppBar.eventArchivedNotes = getArchivedNotes;
+  elementArchiveNote.eventArchivedNotes = getArchivedNotes;
   getAllNotes();
 }
 

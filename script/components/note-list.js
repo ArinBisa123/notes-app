@@ -13,13 +13,11 @@ class NoteList extends HTMLElement {
   set eventDeleteNote(event){
     this._eventDeleteNote = event;
   }
-  set eventArchiveNote(event){
-    this._eventArchiveNote=event
+  set eventArchivedNote(event){
+    this._eventArchivedNote=event
     this.render()
   }
-  connectedCallback(){
-    this.render()
-  }
+
   render() {
     this._shadowRoot.innerHTML = `
       <style>
@@ -46,6 +44,7 @@ class NoteList extends HTMLElement {
           box-shadow: 0 4px 9px 0 rgb(241, 238, 220);
           padding: 20px;
           font-size: 15px;
+          min-width: 230px;
         }
         .title_note{
           font-size:18px;
@@ -61,7 +60,7 @@ class NoteList extends HTMLElement {
         }
         .delete-button{
           background-color:D5BDAF;
-          width: 50px;
+          width: 70px;
           padding: 8px 8px;
           border: none;
           border-radius: 4px;
@@ -71,13 +70,25 @@ class NoteList extends HTMLElement {
         }
         .archive-button{
           background-color:D5BDAF;
-          width: 50px;
+          width: 70px;
           padding: 8px 8px;
           border: none;
           border-radius: 4px;
           cursor: pointer;
           font-family: "Playfair Display", serif;
           font-size:16px;
+        }
+        .delete-button:hover{
+          font-weight:bold;
+          background-color: F5EBE0;
+          border: solid;
+          border-color: D5BDAF
+        }
+        .archive-button:hover{
+          font-weight:bold;
+          background-color: F5EBE0;
+          border: solid;
+          border-color: D5BDAF
         }
       </style>
       <div class="container-note-list"> 
@@ -100,7 +111,7 @@ class NoteList extends HTMLElement {
               <p>${note.body}</p>
           </div>
           <button class ="delete-button" id="${note.id}">Hapus</button>
-          <button class ="archive-button"> Arsip </button>
+          <button class ="archive-button" id="archive-button"> Arsip </button>
         </div>
       `;
 
@@ -108,7 +119,7 @@ class NoteList extends HTMLElement {
         this._eventDeleteNote(note.id);
       });
       this._shadowRoot.querySelector('.archive-button').addEventListener('click',()=>{
-        this._eventArchiveNote()
+        this._eventArchivedNote()
       })
     });
   }

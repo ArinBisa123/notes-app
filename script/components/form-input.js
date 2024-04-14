@@ -9,11 +9,6 @@ class NotesInput extends HTMLElement {
     this._eventAddNotes = event;
     this.render();
   }
-
-  connectedCallback() {
-    this.render();
-  }
-
   render() {
     this._shadowRoot.innerHTML = `
       <style>
