@@ -4,15 +4,10 @@ class Navbar extends HTMLElement{
     this._shadowRoot = this.attachShadow({mode:"open"});
   }
 
-  set eventArchivedNotes (event){
-    this._eventArchivedNotes = event;
-    this.render();
-  }
-
-  set eventArchivedNotes (event){
-    this._eventArchivedNotes = event;
-    this.render();
-  }
+  // set eventArchivedNotes (event){
+  //   this._eventArchivedNotes = event;
+  //   this.render();
+  // }
 
   connectedCallback( ){
     this.render();
@@ -37,7 +32,7 @@ class Navbar extends HTMLElement{
 			</nav>
     `;
 
-    this._shadowRoot.querySelector('h1').addEventListener('click', this._eventArchivedNotes);
+    // this._shadowRoot.querySelector('h1').addEventListener('click', this._eventArchivedNotes);
   }
 }
 

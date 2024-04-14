@@ -13,7 +13,13 @@ class NoteList extends HTMLElement {
   set eventDeleteNote(event){
     this._eventDeleteNote = event;
   }
-
+  set eventArchiveNote(event){
+    this._eventArchiveNote=event
+    this.render()
+  }
+  connectedCallback(){
+    this.render()
+  }
   render() {
     this._shadowRoot.innerHTML = `
       <style>
@@ -53,6 +59,26 @@ class NoteList extends HTMLElement {
           font-family:"Playfair Display", serif;
           font-weight:600;
         }
+        .delete-button{
+          background-color:D5BDAF;
+          width: 50px;
+          padding: 8px 8px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-family: "Playfair Display", serif;
+          font-size:16px;
+        }
+        .archive-button{
+          background-color:D5BDAF;
+          width: 50px;
+          padding: 8px 8px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-family: "Playfair Display", serif;
+          font-size:16px;
+        }
       </style>
       <div class="container-note-list"> 
         <h2>Daftar Catatan</h2>   
@@ -73,13 +99,17 @@ class NoteList extends HTMLElement {
           <div class="body_note">
               <p>${note.body}</p>
           </div>
-          <button id="${note.id}">Delete</button>
+          <button class ="delete-button" id="${note.id}">Hapus</button>
+          <button class ="archive-button"> Arsip </button>
         </div>
       `;
 
       this._shadowRoot.querySelector(`#${note.id}`).addEventListener('click', () => {
         this._eventDeleteNote(note.id);
       });
+      this._shadowRoot.querySelector('.archive-button').addEventListener('click',()=>{
+        this._eventArchiveNote()
+      })
     });
   }
 }

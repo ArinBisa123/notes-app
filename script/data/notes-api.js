@@ -8,16 +8,16 @@ const NotesApi = () => {
 
   const search = async (word) => {
 		try{
-			const responseArchived = await fetch(`${BASE_URL}/notes/archived`);
-			const responseJSONArchived = await responseArchived.json();
-			const responseNonArchived = await fetch(`${BASE_URL}/notes`);
-			const responseJSONNonArchived = await responseNonArchived.json();
-			const status = responseJSONNonArchived.status == 'fail' || responseJSONArchived.status == 'fail';
-			let result = !status ? responseJSONNonArchived.data.concat(responseJSONArchived.data) : [];
-			const responseMassege = responseJSONArchived.message + '\n' + responseJSONNonArchived.message;
+			const archivedResponse = await fetch(`${BASE_URL}/notes/archived`);
+			const JSONArchived = await archivedResponse.json();
+			const nonArchivedResponse = await fetch(`${BASE_URL}/notes`);
+			const JSONNonArchived = await nonArchivedResponse.json();
+			const status = JSONNonArchived.status == 'fail' || JSONArchived.status == 'fail';
+			let result = !status ? JSONNonArchived.data.concat(JSONArchived.data) : [];
+			const messageResponse = JSONArchived.message + '\n' + JSONNonArchived.message;
 			if(status){
         setTimeout(() => {
-					alert(responseMassege);
+					alert(messageResponse);
 				}, 500);
 			}else{
         result = result.filter(note => {
@@ -32,16 +32,16 @@ const NotesApi = () => {
 
   const getAllNotes = async () => {
     try{
-			const responseNonArchived = await fetch(`${BASE_URL}/notes`);
-			const responseArchived = await fetch(`${BASE_URL}/notes/archived`);
-			const responseJSONNonArchived = await responseNonArchived.json();
-			const responseJSONArchived = await responseArchived.json();
-			if(responseJSONNonArchived.status == 'fail' || responseJSONArchived.status == 'fail'){
+			const nonArchivedResponse = await fetch(`${BASE_URL}/notes`);
+			const archivedResponse = await fetch(`${BASE_URL}/notes/archived`);
+			const JSONNonArchived = await nonArchivedResponse.json();
+			const JSONArchived = await archivedResponse.json();
+			if(JSONNonArchived.status == 'fail' || JSONArchived.status == 'fail'){
 				setTimeout(() => {
-					alert(responseJSONNonArchived.message + ', ' + responseJSONArchived.message);
+					alert(JSONNonArchived.message + ', ' + JSONArchived.message);
 				}, 500);
 			}else{
-				const allNotes = responseJSONNonArchived.data.concat(responseJSONArchived.data);
+				const allNotes = JSONNonArchived.data.concat(JSONArchived.data);
 				elementListNote.notes = allNotes;
 			}
 		} catch(error){
@@ -51,14 +51,14 @@ const NotesApi = () => {
 
   const getArchivedNotes = async () => {
     try{
-			const responseArchived = await fetch(`${BASE_URL}/notes/archived`);
-			const responseJSONArchived = await responseArchived.json();
-			if(responseJSONArchived.status == 'fail'){
+			const archivedResponse = await fetch(`${BASE_URL}/notes/archived`);
+			const JSONArchived = await archivedResponse.json();
+			if(JSONArchived.status == 'fail'){
 				setTimeout(() => {
-					alert(responseJSONArchived.message);
+					alert(JSONArchived.message);
 				}, 500);
 			}else{
-				const allNotes = responseJSONArchived.data;
+				const allNotes = JSONArchived.data;
 				elementListNote.notes = allNotes;
 			}
 		} catch(error){
