@@ -14,8 +14,7 @@ class NoteList extends HTMLElement {
     this._eventDeleteNote = event;
   }
   set eventArchivedNote(event){
-    this._eventArchivedNote=event
-    this.render()
+    this._eventArchivedNote=event;
   }
 
   render() {
@@ -98,29 +97,32 @@ class NoteList extends HTMLElement {
       </div>
     `;
 
+    const notesList = this._shadowRoot.querySelector('.notes-list');
     this._notes.forEach((note) => {
-      this._shadowRoot.querySelector('.notes-list').innerHTML += `
-        <div class="notes-item">
-          <div class="title_note">
-              <h3>${note.title}</h3>
-          </div>
-          <div class="date_note">
-            ${new Date(note.createdAt).toLocaleDateString()}
-          </div>
-          <div class="body_note">
-              <p>${note.body}</p>
-          </div>
-          <button class ="delete-button" id="${note.id}">Hapus</button>
-          <button class ="archive-button" id="archive-button"> Arsip </button>
+      const noteItem = document.createElement('div');
+      noteItem.classList.add('notes-item');
+      noteItem.innerHTML = `
+        <div class="title_note">
+          <h3>${note.title}</h3>
         </div>
+        <div class="date_note">
+          ${new Date(note.createdAt).toLocaleDateString()}
+        </div>
+        <div class="body_note">
+            <p>${note.body}</p>
+        </div>
+        <button class ="delete-button" id="delete-${note.id}">Hapus</button>
+        <button class ="archive-button" id="archive-${note.id}"> Arsip </button>
       `;
-
-      this._shadowRoot.querySelector(`#${note.id}`).addEventListener('click', () => {
+  
+      noteItem.querySelector(`#delete-${note.id}`).addEventListener('click', () => {
         this._eventDeleteNote(note.id);
       });
-      this._shadowRoot.querySelector('.archive-button').addEventListener('click',()=>{
-        this._eventArchivedNote()
-      })
+      noteItem.querySelector(`#archive-${note.id}`).addEventListener('click',()=>{
+        this._eventArchivedNote(note.id);
+      });
+  
+      notesList.appendChild(noteItem);
     });
   }
 }

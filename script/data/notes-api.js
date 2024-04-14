@@ -20,10 +20,14 @@ const NotesApi = () => {
 					alert(messageResponse);
 				}, 500);
 			}else{
-        result = result.filter(note => {
-					return note.title.includes(word);
+        const archiveNote= result.filter(note => {
+					return note.title.includes(word)&& note.archived;
 				});
-				elementListNote.notes = result;
+				const nonArchiveNote = result.filter(note => {
+					return note.title.includes(word)&& !note.archived;
+				})
+				elementListNote.notes = nonArchiveNote;
+				elementArchiveNote.notes=archiveNote
 			}
 		} catch(error){
 			alert(error.stack);
@@ -48,6 +52,38 @@ const NotesApi = () => {
 			alert(error.stack);
 		}
   }
+	const archiveNotes= async (id) =>{
+		try{
+			const response = await fetch(`${BASE_URL}/notes/${id}/archive`, {
+				method : 'POST',
+			});
+			const responseJSON = await response.json();
+			setTimeout(() => {
+				showResponseMessage(responseJSON.message);
+			}, 500);
+			getAllNotes()
+			getArchivedNotes()
+		} catch(error){
+			showResponseMessage(error.stack);
+		}
+	}
+	const unArchiveNote = async (id) => {
+		try{
+			const response = await fetch(`${BASE_URL}/notes/${id}/unarchive`, {
+				method : 'POST',
+			});
+			const responseJSON = await response.json();
+			setTimeout(() => {
+				alert(responseJSON.message);
+			}, 500);
+
+			getAllNotes();
+			getArchivedNotes();
+		} catch(error){
+			alert(error.stack);
+		}
+	};
+
 
   const getArchivedNotes = async () => {
     try{
@@ -58,8 +94,8 @@ const NotesApi = () => {
 					alert(JSONArchived.message);
 				}, 500);
 			}else{
-				const allNotes = JSONArchived.data;
-				elementListNote.notes = allNotes;
+				const archiveNote = JSONArchived.data;
+				elementArchiveNote.notes = archiveNote;
 			}
 		} catch(error){
 			alert(error.stack);
@@ -80,6 +116,7 @@ const NotesApi = () => {
 				alert(responseJSON.message);
 			}, 500);
       getAllNotes();
+			getArchivedNotes()
 		} catch(error){
 			alert(error.stack);
 		}
@@ -95,6 +132,7 @@ const NotesApi = () => {
 				alert(responseJSON.message);
 			}, 500);
       getAllNotes();
+			getArchivedNotes()
 		} catch(error){
 			alert(error.stack);
 		}
@@ -103,8 +141,11 @@ const NotesApi = () => {
   elementSearchNote.eventSearch = search;
   elementFormInput.eventAddNotes = addNote;
   elementListNote.eventDeleteNote = deleteNote;
-  elementArchiveNote.eventArchivedNotes = getArchivedNotes;
+  elementListNote.eventArchivedNotes = archiveNotes;
+	elementArchiveNote.eventNonArchivedNotes= unArchiveNote
+	elementArchiveNote.eventDeleteNote=deleteNote
   getAllNotes();
+	getArchivedNotes()
 }
 
 export default NotesApi;
