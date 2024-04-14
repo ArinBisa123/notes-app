@@ -65,7 +65,7 @@ class ArchiveNote extends HTMLElement{
         }
         .non-archive-button{
           background-color:D5BDAF;
-          width: 70px;
+          width: 100px;
           padding: 8px 8px;
           border: none;
           border-radius: 4px;
@@ -107,14 +107,14 @@ class ArchiveNote extends HTMLElement{
             <p>${note.body}</p>
         </div>
         <button class ="delete-button" id="delete-${note.id}">Hapus</button>
-        <button class ="non-archive-button" id="non-archive-${note.id}">Buka</button>
+        <button class ="non-archive-button" id="non-archive-${note.id}">Batal Arsip</button>
       `;
   
       noteItem.querySelector(`#delete-${note.id}`).addEventListener('click', () => {
         this._eventDeleteNote(note.id);
       });
       noteItem.querySelector(`#non-archive-${note.id}`).addEventListener('click',()=>{
-        this._eventNonArchivedNote(note.id);
+        this._eventNonArchivedNotes (note.id);
       });
       
       notesList.appendChild(noteItem)

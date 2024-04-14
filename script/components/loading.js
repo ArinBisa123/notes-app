@@ -1,4 +1,4 @@
-class IndikatorLoading extends HTMLElement {
+class Loading extends HTMLElement {
 	constructor() {
 		super();
 	}
@@ -90,4 +90,4 @@ class IndikatorLoading extends HTMLElement {
 	}
 }
 
-customElements.define('indikator-loading', IndikatorLoading);
+customElements.define('loading-indicator', Loading);

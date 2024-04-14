@@ -5,9 +5,10 @@ const NotesApi = () => {
   const elementArchiveNote= document.querySelector('archive-note');
   const elementFormInput = document.querySelector('form-input');
   const elementSearchNote = document.querySelector('search-note');
-
+	const elementLoading = document.querySelector('loading-indicator')
   const search = async (word) => {
 		try{
+			elementLoading.hidden=false
 			const archivedResponse = await fetch(`${BASE_URL}/notes/archived`);
 			const JSONArchived = await archivedResponse.json();
 			const nonArchivedResponse = await fetch(`${BASE_URL}/notes`);
@@ -18,6 +19,7 @@ const NotesApi = () => {
 			if(status){
         setTimeout(() => {
 					alert(messageResponse);
+					elementLoading.hidden=true
 				}, 500);
 			}else{
         const archiveNote= result.filter(note => {
@@ -28,6 +30,7 @@ const NotesApi = () => {
 				})
 				elementListNote.notes = nonArchiveNote;
 				elementArchiveNote.notes=archiveNote
+				elementLoading.hidden=true
 			}
 		} catch(error){
 			alert(error.stack);
@@ -59,12 +62,12 @@ const NotesApi = () => {
 			});
 			const responseJSON = await response.json();
 			setTimeout(() => {
-				showResponseMessage(responseJSON.message);
+				alert(responseJSON.message);
 			}, 500);
 			getAllNotes()
 			getArchivedNotes()
 		} catch(error){
-			showResponseMessage(error.stack);
+			alert(error.stack);
 		}
 	}
 	const unArchiveNote = async (id) => {
@@ -141,7 +144,7 @@ const NotesApi = () => {
   elementSearchNote.eventSearch = search;
   elementFormInput.eventAddNotes = addNote;
   elementListNote.eventDeleteNote = deleteNote;
-  elementListNote.eventArchivedNotes = archiveNotes;
+  elementListNote.eventArchivedNote = archiveNotes;
 	elementArchiveNote.eventNonArchivedNotes= unArchiveNote
 	elementArchiveNote.eventDeleteNote=deleteNote
   getAllNotes();
