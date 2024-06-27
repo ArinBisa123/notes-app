@@ -25,7 +25,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd profile-web-taulebih
+  cd your downloaded project directory 
 ```
 
 Install all package
